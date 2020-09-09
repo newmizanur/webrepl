@@ -10,7 +10,7 @@ table#input-bar {
 
 #clear {
     width: 100%;
-    font-size:28px;
+    font-size:14px;
     font-family:Verdana;
     background-color: #FF5C5C;
     -moz-border-radius: 5px;
@@ -31,7 +31,7 @@ table#input-bar {
 
 input#in {
     width: 100%;
-    font-size:30px;
+    font-size:16px;
     font-family:Verdana;
     color:#0B5C7B;
     border: 2px solid white;
@@ -43,28 +43,30 @@ input#in {
     -webkit-border-radius: 5px;
     border-radius: 5px;
     outline: 0 none;
+    padding-left: 5px;
 }
 
 #out {
-    font-size:18px;
+    font-size:13px;
     font-family:Verdana;
     color:#0B5C7B;
 }
 
 div#main-container {
-    background-color:white;
-    margin-top:30px;
-    margin-left:4%;
-    padding: 2% 2% 2% 2%;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    width:88%;
+    background-color:#d9d6d6;
+    margin-top:10px;
+    /*margin-left:4%;*/
+    padding: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    /*width:88%;*/
+    height: 100%;
 }
 
 div#header {
-    font-size:18px;
+    font-size:14px;
     font-family:Verdana;
     color:#0B5C7B;
     background-color:white;

@@ -1,19 +1,23 @@
 {
-  "name" : "webrepl",
-  "version" : "0.4.7",
-  "description" : "Serve a repl for a node process via a web console",
+  "name": "webrepl",
+  "version": "0.4.7",
+  "description": "Serve a repl for a node process via a web console",
   "url": "https://github.com/mmattozzi/webrepl",
-  "author" : "Mike Mattozzi <mike.mattozzi@gmail.com>",
-  "main" : "./webrepl.js",
+  "author": "Mike Mattozzi <mike.mattozzi@gmail.com>",
+  "main": "./webrepl.js",
   "engines": {
-      "node": ">=4.2.3"
+    "node": ">=4.2.3"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/mmattozzi/webrepl.git"
   },
   "dependencies": {
-      "http-auth": ">=2.2.8"
+    "http-auth": ">=2.2.8"
   },
-  "keywords": [ "repl", "console", "management" ]
+  "keywords": [
+    "repl",
+    "console",
+    "management"
+  ]
 }

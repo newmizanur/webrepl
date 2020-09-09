@@ -3,6 +3,7 @@
         <title>Node REPL</title>
         <link rel="stylesheet" href="webrepl.css" TYPE="text/css"/>
         <script src="jquery-1.5.min.js" type="text/javascript"></script>
+        <script src="json-formatter.cjs.js"></script>
         
         <script type="text/javascript">
             
@@ -73,7 +74,11 @@
                 });
                 
                 $.get('info', function(data) {
-                    $('#header').prepend($("<div>[" + data.pid + '] ' + data.name + "</div>"));
+                    $('#header').prepend($("<div "+ "pid=" + data.pid +"> Objects: " + data.keys.join(', ') +"</div>"));
+                    if(data.docs){
+                        $('#blurb').html( data.docs.split('\n').map(line => '<div>' + line + '</div>').join(''))
+                        
+                    }
                 }, 'json');
                 
                 $('#in').focus();
@@ -82,13 +87,14 @@
             function clear() {
                 $.post('clear', function(data) {
                     getResponse();
+                    $('.replOut,.replIn').remove();
                 });
                 $('#out').prepend($("<div class='replErr'>[ Reset ]</div>"));
             }
             
             function commandEntered() {
                 if (! blurbHidden) {
-                    $('#blurb').hide();
+                    // $('#blurb').hide();
                     blurbHidden = true;
                 }
                 var command = $('#in').val();
@@ -104,10 +110,15 @@
             function getResponse() {
                 $.get('repl', function(resData) {
                     var type = 'replOut';
-                    if (resData.match(/.*Error:/)) {
-                        type = 'replErr';
+                    //Reducing operation
+                    // if (resData.match(/.*Error:/)) {
+                    //     type = 'replErr';
+                    // }
+                    let id  = "out_"+ new Date().getTime();
+                    $('#out').prepend($("<div " + "id=" + id + " class='" + type + "'>" + '' + "</div>"));
+                    if(type == 'replOut'){
+                        beautify(resData, document.getElementById(id));
                     }
-                    $('#out').prepend($("<div class='" + type + "'>" + resData + "</div>"));
                 });
             }
             
@@ -136,7 +147,7 @@
                             suggestString += possibles[j] + ' ';
                         }
                         if (! blurbHidden) {
-                            $('#blurb').hide();
+                            // $('#blurb').hide();
                             blurbHidden = true;
                         }
                         $('#out').prepend($("<div class='replCompl'>" + suggestString + "</div>"));
@@ -173,14 +184,24 @@
               return candidates[0].slice(0, index)
             }
             
+            function beautify(data, wrapperElement) {
+                try{
+                    let option = {animateOpen: false, animateClose: false,useToJSON: false};
+                    let formatter = new JSONFormatter(JSON.parse(data || null),false, option);
+                    wrapperElement.appendChild(formatter.render());
+                }catch (e) {
+                    // console.log(e.message);
+                    wrapperElement.innerHTML = data;
+                }
+            }
         </script>
     </head>
     <body>
         <div id="header"></div>
         <table id="input-bar">
             <tr>
-                <td style="width:95%"><input id="in" type="text" /></td>
-                <td style="width:5%"><span id="clear">^C</span></td>
+                <td style="width:100%"><input id="in" type="text" placeholder="Type command here" /></td>
+                <td style="width:5%;"><span id="clear">Clear</span></td>
             </tr>
         </table>
         <div id="main-container">

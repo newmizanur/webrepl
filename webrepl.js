@@ -162,8 +162,8 @@ ReplHttpServer.prototype.route = function(req, res) {
             res.end();
         }
     } else if (req.url.match(/^\/info/)) {
-        var name = (process.argv.length > 1 ? process.argv[1] : process.argv[0]);
-        var info = { 'pid': process.pid, 'name': name };
+        // var name = (process.argv.length > 1 ? process.argv[1] : process.argv[0]);
+        var info = { 'pid': process.pid, keys: Object.keys(replServer.context.data), docs: replServer.context.docs };
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.end(JSON.stringify(info));
     } else if (req.url.match(/^\/clear/) && req.method === 'POST') {
@@ -228,7 +228,7 @@ ReplHttpServer.prototype.serveFile = function(file, response) {
 var start = function(port, options) {
     var stream = new SimpleStream();
     var prompt = 'node> ';
-    var rs = repl.start({ prompt: prompt, input: stream, output: stream});
+    var rs = repl.start({ prompt: prompt, input: stream, output: stream,writer: JSON.stringify});
     var replHttpServer = new ReplHttpServer(prompt, stream, rs, options);
     replHttpServer.start(port);
     return rs;
