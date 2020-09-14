@@ -79,6 +79,10 @@
                         $('#blurb').html( data.docs.split('\n').map(line => '<div>' + line + '</div>').join(''))
                         
                     }
+                    if(data.title){
+                        $('title').html(data.title)
+                        
+                    }
                 }, 'json');
                 
                 $('#in').focus();

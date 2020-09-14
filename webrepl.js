@@ -163,7 +163,10 @@ ReplHttpServer.prototype.route = function(req, res) {
         }
     } else if (req.url.match(/^\/info/)) {
         // var name = (process.argv.length > 1 ? process.argv[1] : process.argv[0]);
-        var info = { 'pid': process.pid, keys: Object.keys(replServer.context.data), docs: replServer.context.docs };
+        var info = { 
+            'pid': process.pid, keys: Object.keys(replServer.context.data), docs: replServer.context.docs,
+            title: replServer.context.title
+        };
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.end(JSON.stringify(info));
     } else if (req.url.match(/^\/clear/) && req.method === 'POST') {
