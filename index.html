@@ -193,6 +193,7 @@
                     let option = {animateOpen: false, animateClose: false,useToJSON: false};
                     let formatter = new JSONFormatter(JSON.parse(data || null),false, option);
                     wrapperElement.appendChild(formatter.render());
+                    console.log(data);
                 }catch (e) {
                     // console.log(e.message);
                     wrapperElement.innerHTML = data;
